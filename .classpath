@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_101_x86"/>
+	<classpathentry kind="lib" path="lib/apache-log4j-extras-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/guava-19.0.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.8.2.jar"/>
+	<classpathentry kind="lib" path="lib/mina-core-2.0.9.jar"/>
+	<classpathentry kind="lib" path="lib/quickfixj-core-1.6.0.jar" sourcepath="C:/no_synced/dev.libs/org.quickfixj-1.6.0/org.quickfixj-1.6.0-src/org.quickfixj-1.6.0/quickfixj-core/src/main/java"/>
+	<classpathentry kind="lib" path="lib/bsh-core-2.0b4.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-api-2.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-core-2.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-slf4j-impl-2.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.6.4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

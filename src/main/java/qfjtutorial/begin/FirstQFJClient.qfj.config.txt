@@ -1,0 +1,56 @@
+[default]
+StartTime=00:00:00
+EndTime=00:00:00
+HeartBtInt=30
+ReconnectInterval=5
+
+#logging
+#http://www.quickfixj.org/quickfixj/usermanual/1.5.0/usage/configuration.html#Logging
+FileStorePath=./fileStore/FirstQFJClient
+FileLogPath=log/FirstQFJClient
+FileLogHeartbeats=Y
+FileIncludeMilliseconds=Y
+FileIncludeTimeStampForMessages=Y
+
+PersistMessages=Y
+
+[session]
+ConnectionType=initiator
+
+#SenderCompID is your own id
+#TargetCompID is remote id
+SenderCompID=abcClientCompID
+TargetCompID=xyzServerCompID
+
+
+BeginString=FIXT.1.1
+
+#
+#remote server 
+#
+SocketConnectHost=localhost
+SocketConnectPort=17005
+
+#8 - 5.0SP1
+#http://www.onixs.biz/fix-dictionary/5.0.SP1/tagNum_1128.html
+DefaultApplVerID=8
+
+#NOT required for none FIT1.1
+TransportDataDictionary=dictionary/FIXT11.xml
+
+UseDataDictionary=Y
+AppDataDictionary=dictionary/FIX50SP1.xml
+
+ResetOnLogon=Y
+#ResetOnLogon=N
+
+#If set to N, fields that are out of order (i.e. body fields in the header, or header fields in the body) will not be rejected. 
+#Useful for connecting to systems which do not properly order fields.
+#http://www.quickfixengine.org/quickfix/doc/html/configuration.html
+#http://www.quickfixj.org/quickfixj/usermanual/1.5.1/usage/configuration.html
+ValidateFieldsOutOfOrder=N
+
+#Session validation setting for enabling whether field ordering is * validated. 
+#Values are "Y" or "N". Default is "Y".
+#http://www.quickfixj.org/quickfixj/usermanual/1.5.1/usage/configuration.html
+ValidateUnorderedGroupFields=N
