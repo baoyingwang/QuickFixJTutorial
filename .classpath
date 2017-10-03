@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_101_x86"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_111_x64"/>
 	<classpathentry kind="lib" path="lib/apache-log4j-extras-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.5.jar"/>
 	<classpathentry kind="lib" path="lib/guava-19.0.jar"/>
@@ -14,5 +14,7 @@
 	<classpathentry kind="lib" path="lib/log4j-core-2.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-slf4j-impl-2.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/quickfixj-codegenerator-1.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/no_synced/dev.libs/org.quickfixj-1.6.0/quickfixj-messages-all-1.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

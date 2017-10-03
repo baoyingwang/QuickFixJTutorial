@@ -1,4 +1,4 @@
-package qfjtutorial.begin;
+package qfjtutorial.common;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -18,17 +18,15 @@ import quickfix.mina.acceptor.AcceptorSessionProvider;
 import quickfix.mina.acceptor.DynamicAcceptorSessionProvider;
 
 //Dynamic means, client configuration is NOT required to be hardcoded in server configuration file.
-//http://www.quickfixj.org/quickfixj/usermanual/1.5.3/usage/acceptor_dynamic.html
-//The only difference with FirstQFJServer is run another setup:setupDynamicSessionProvider
-//You could setup your own log4j2 file, e.g.-Dlog4j.configurationFile=qfjtutorial/common/ConsoleOnly.log4j2.xml
-public class FirstDynamicSessionQFJServer {
+//Office document: http://www.quickfixj.org/quickfixj/usermanual/1.5.3/usage/acceptor_dynamic.html
+public class DefaultDynamicSessionQFJServer {
 
-	protected final static Logger log = LoggerFactory.getLogger(FirstDynamicSessionQFJServer.class);
+	protected final static Logger log = LoggerFactory.getLogger(DefaultDynamicSessionQFJServer.class);
 
-	private final FirstQFJServer _qfjServer;
+	private final DefaultQFJAcceptor _qfjServer;
 	private final SessionSettings _settings;
 
-	public FirstDynamicSessionQFJServer(FirstQFJServer qfjServer) throws Exception {
+	public DefaultDynamicSessionQFJServer(DefaultQFJAcceptor qfjServer) throws Exception {
 
 		_qfjServer = qfjServer;
 		_settings = qfjServer.get_settings();
@@ -71,14 +69,18 @@ public class FirstDynamicSessionQFJServer {
 	public void stop() throws Exception{
 		_qfjServer.stop();
 	}
-	public static void main(String[] args) throws Exception {
-
-		String dynamicAcceptorConfigurationFileInClasspath = "qfjtutorial/begin/FirstDynamicSessionQFJServer.qfj.config.txt";
-		Application msgCallback = new FirstQFJServer.AcceptorMessageCalback();
+	
+	
+	public static void main(String... args) throws Exception{
 		
-		FirstQFJServer qfjServer = new FirstQFJServer(dynamicAcceptorConfigurationFileInClasspath, msgCallback);
 
-		FirstDynamicSessionQFJServer server = new FirstDynamicSessionQFJServer(qfjServer);
-		server.start();
-	}	
+
+			String appConfigInClasspath = "qfjtutorial/common/DefaultDynamicSessionQFJServer.qfj.config.txt";
+			Application msgCallback = new DefaultMessageCallback();
+			DefaultQFJAcceptor acceptor = new DefaultQFJAcceptor(appConfigInClasspath, msgCallback);
+			
+			DefaultDynamicSessionQFJServer dynamicAcceptor = new DefaultDynamicSessionQFJServer(acceptor);
+			
+			dynamicAcceptor.start();
+		}
 }

@@ -44,5 +44,8 @@ ValidateUnorderedGroupFields=N
 
 ConnectionType=acceptor
 
+#for the configuration file of DynamicAcceptor
+#the AcceptorTemplate=Y
+#not required to define the SenderCompID/TargetCompID anymore.
 [session]
 AcceptorTemplate=Y
