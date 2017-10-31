@@ -16,7 +16,7 @@ import quickfix.SessionSettings;
 import quickfix.SocketAcceptor;
 import quickfix.UnsupportedMessageType;
 
-//This is simplified version. 
+//This is simplified version - company ids are hardcoded. 
 //For production, please see common.DefaultQFJAcceptor and common.DefaultDynamicSessionQFJServer
 public class FirstQFJServer {
 	
@@ -41,7 +41,7 @@ public class FirstQFJServer {
 		public void fromApp(Message paramMessage, SessionID paramSessionID)
 				throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType {
 
-			System.out.println("fromApp session:, received  " + paramMessage.toString());
+			System.out.println("fromApp session: received " + paramMessage.toString());
 			
 			try {
 				

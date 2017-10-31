@@ -18,6 +18,7 @@ import quickfix.mina.acceptor.AcceptorSessionProvider;
 import quickfix.mina.acceptor.DynamicAcceptorSessionProvider;
 
 //Dynamic means, client configuration is NOT required to be hardcoded in server configuration file.
+//FirstQFJServer hardcodes the client compid, without dynamic session feature.  
 //Office document: http://www.quickfixj.org/quickfixj/usermanual/1.5.3/usage/acceptor_dynamic.html
 public class DefaultDynamicSessionQFJServer {
 

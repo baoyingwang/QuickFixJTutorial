@@ -17,6 +17,7 @@ import quickfix.Session;
 import quickfix.SessionID;
 import quickfix.SessionNotFound;
 import quickfix.SessionSettings;
+import quickfix.SessionStateListener;
 import quickfix.SocketInitiator;
 
 //the session has been setup at both client and server side, in related configuration files
@@ -38,12 +39,21 @@ public class DefaultQFJSingleSessionInitiator {
 
 	private final CountDownLatch _latchForLogonResponse;
 
+	private final SessionStateListener _clientSessionStateListener;
 	public DefaultQFJSingleSessionInitiator(String appConfigInClasspath, Application msgCallback) throws Exception {
+
+		this(appConfigInClasspath,  msgCallback, null);
+
+	}
+	
+	public DefaultQFJSingleSessionInitiator(String appConfigInClasspath, Application msgCallback, SessionStateListener sessionStateListener) throws Exception {
 
 		_appConfigInClasspath = appConfigInClasspath;
 		log.info("qfj client begin initializing, with app configuration file in classpath:{}", appConfigInClasspath);
 
 		_msgCallback = msgCallback;
+		
+		_clientSessionStateListener = sessionStateListener;
 
 		_settings = new SessionSettings(appConfigInClasspath);
 		log.info("_settings.size(): {}", _settings.size());
@@ -77,7 +87,7 @@ public class DefaultQFJSingleSessionInitiator {
 
 		log.info("qfj client initialized, with app configuration file in classpath:{}", appConfigInClasspath);
 
-	}
+	}	
 
 	// start is NOT put in constructor deliberately, to let it pair with
 	// shutdown
@@ -90,6 +100,8 @@ public class DefaultQFJSingleSessionInitiator {
 		// Add state listner callback to a session, after initiator start.
 		// Because session is created during initiator(Connector).start();
 		Session session = Session.lookupSession(_sessionID);
+		
+		//TODO the below session state listen maybe has thread conflict with the one from client.
 		session.addStateListener(new DefaultSessionStateListener(_sessionID) {
 			@Override
 			public void onLogon() {
@@ -97,6 +109,10 @@ public class DefaultQFJSingleSessionInitiator {
 				_latchForLogonResponse.countDown();
 			}
 		});
+		
+		if(_clientSessionStateListener != null){
+			session.addStateListener(_clientSessionStateListener);
+		}
 		_latchForLogonResponse.await();
 
 		log.info("qfj client started, {}", _appConfigInClasspath);
