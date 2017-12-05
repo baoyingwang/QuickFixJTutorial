@@ -12,7 +12,7 @@ FileStorePath=./fileStore/FirstQFJClient
 
 #Logging
 #http://www.quickfixj.org/quickfixj/usermanual/1.6.4/usage/configuration.html#Logging
-#The File* entries are for FileLogFactory ONLY.
+#The File entries are for FileLogFactory ONLY.
 FileLogPath=log/FirstQFJClient
 FileLogHeartbeats=Y
 FileIncludeMilliseconds=Y

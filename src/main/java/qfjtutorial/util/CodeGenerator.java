@@ -1,4 +1,4 @@
-package qfjtutorial.intermediate;
+package qfjtutorial.util;
 
 import java.io.File;
 import java.text.DecimalFormat;

@@ -11,8 +11,24 @@ You could setup your own log4j2 file, by e.g.-Dlog4j.configurationFile=log4j2_co
       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
   </Appenders>
+  
+  <!-- 
+    SL4J category list - see https://www.quickfixj.org/usermanual/1.6.4//usage/configuration.html
+    In source code,  all are printed as info level, except error event(error level). 
+  -->
+  <category name="quickfixj.event">
+    <priority value="info"/>
+    <!-- <appender-ref ref="A1"/> use another appender if required -->
+  </category>
+  <category name="quickfixj.msg.incoming">
+    <priority value="info"/>
+  </category>  
+  <category name="quickfixj.msg.outgoing">
+    <priority value="info"/>
+  </category>  
+    
   <Loggers>
-    <Root level="debug">
+    <Root level="info">
       <AppenderRef ref="Console"/>
     </Root>
   </Loggers>

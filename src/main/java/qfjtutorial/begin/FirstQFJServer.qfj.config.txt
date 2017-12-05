@@ -20,6 +20,8 @@ FileIncludeTimeStampForMessages=Y
 SocketAcceptAddress=localhost
 SocketAcceptPort=17005
 
+
+#================================================
 #FIX.4.0,FIX.4.1,FIX.4.2,FIX.4.3,FIX.4.4 
 #FIXT.1.1 (which then requires DefaultApplVerID, see below)
 BeginString=FIXT.1.1
@@ -33,6 +35,8 @@ TransportDataDictionary=dictionary/FIXT11.xml
 
 UseDataDictionary=Y
 AppDataDictionary=dictionary/FIX50SP1.xml
+#================================================
+
 
 ResetOnLogon=Y
 

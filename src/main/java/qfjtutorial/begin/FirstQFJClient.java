@@ -41,6 +41,8 @@ public class FirstQFJClient {
 		TimeUnit.SECONDS.sleep(3);
 
 		Session.sendToTarget(buildHarcodedNewOrderSingleForTest());
+		
+		TimeUnit.SECONDS.sleep(1);
 		Session.sendToTarget(buildHarcodedNewOrderSingleForTest());
 
 		TimeUnit.SECONDS.sleep(3);
