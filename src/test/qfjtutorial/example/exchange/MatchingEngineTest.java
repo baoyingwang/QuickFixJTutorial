@@ -1,30 +1,30 @@
-package qfjtutorial.example.fxexchange;
+package qfjtutorial.example.exchange;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.TreeMap;
 
 import org.junit.Test;
 
-import com.google.common.collect.Multimap;
+import qfjtutorial.example.exchange.CommonMessage.Side;
+import qfjtutorial.example.exchange.MarketDataMessage.OrderBookDelta;
+import qfjtutorial.example.exchange.MatchingEngine.ExecutingOrder;
+import qfjtutorial.example.exchange.MatchingEngine.MatchingEnginOutputMessageFlag;
+import qfjtutorial.example.exchange.TradeMessage.MatchedExecutionReport;
+import qfjtutorial.example.exchange.TradeMessage.OriginalOrder;
 
-import qfjtutorial.example.fxexchange.FXSpotExchange.ExecutingOrder;
-import qfjtutorial.example.fxexchange.FXSpotExchange.ExecutionReport;
-import qfjtutorial.example.fxexchange.FXSpotExchange.OrderBookDelta;
-import qfjtutorial.example.fxexchange.FXSpotExchange.OriginalOrder;
-import qfjtutorial.example.fxexchange.FXSpotExchange.Side;
+public class MatchingEngineTest {
 
-public class FXSpotExchangeTest {
-
-	FXSpotExchange _exchange = new FXSpotExchange("USDJPY");
+	MatchingEngine _exchange = new MatchingEngine("USDJPY");
 	
 	
 	@Test
 	public void testCreateBidBook(){
 		
 		String symbol = "USDJPY";
-		FXSpotExchange.Side side = FXSpotExchange.Side.BID;
+		CommonMessage.Side side = CommonMessage.Side.BID;
 		
 		PriorityQueue<ExecutingOrder> book = _exchange.createBidBook();
 		
@@ -52,7 +52,7 @@ public class FXSpotExchangeTest {
 	public void testCreateAskBook(){
 
 		String symbol = "USDJPY";
-		FXSpotExchange.Side side = FXSpotExchange.Side.OFFER;
+		CommonMessage.Side side = CommonMessage.Side.OFFER;
 		
 		
 		OriginalOrder o_140_1mio = new OriginalOrder(symbol, side, 140.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
@@ -86,7 +86,7 @@ public class FXSpotExchangeTest {
 		
 		PriorityQueue<ExecutingOrder> bidBook = _exchange.createBidBook();
 		{
-			FXSpotExchange.Side side = FXSpotExchange.Side.BID;
+			CommonMessage.Side side = CommonMessage.Side.BID;
 			OriginalOrder o_100_1mio = new OriginalOrder(symbol, side, 100.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
 			OriginalOrder o_120_1mio = new OriginalOrder(symbol, side, 120.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
 			OriginalOrder o_130_1mio_sysT1 = new OriginalOrder(symbol, side, 130.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
@@ -100,11 +100,11 @@ public class FXSpotExchangeTest {
 		
 		PriorityQueue<ExecutingOrder> askBook = _exchange.createAskBook();
 		{
-			FXSpotExchange.Side side = FXSpotExchange.Side.OFFER;
-			OriginalOrder o_140_1mio = new OriginalOrder(symbol, side, 140.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
-			OriginalOrder o_150_1mio = new OriginalOrder(symbol, side, 150.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
-			OriginalOrder o_160_1mio_sysT1 = new OriginalOrder(symbol, side, 160.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
-			OriginalOrder o_160_1mio_sysT2 = new OriginalOrder(symbol, side, 160.1, 1000_000, 2, "orderID", "clientOrdID", "clientEntityID");
+			CommonMessage.Side side = CommonMessage.Side.OFFER;
+			OriginalOrder o_140_1mio = new OriginalOrder(symbol, side, 140.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID2");
+			OriginalOrder o_150_1mio = new OriginalOrder(symbol, side, 150.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID2");
+			OriginalOrder o_160_1mio_sysT1 = new OriginalOrder(symbol, side, 160.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID2");
+			OriginalOrder o_160_1mio_sysT2 = new OriginalOrder(symbol, side, 160.1, 1000_000, 2, "orderID", "clientOrdID", "clientEntityID2");
 			
 			
 			askBook.add(new ExecutingOrder(o_140_1mio));
@@ -113,11 +113,14 @@ public class FXSpotExchangeTest {
 			askBook.add(new ExecutingOrder(o_160_1mio_sysT2));
 		}
 		
-		OriginalOrder bid_145_1point5Mio = new OriginalOrder(symbol, FXSpotExchange.Side.BID, 155, 1500_000, 1, "orderID", "clientOrdID", "clientEntityID");
-		List<ExecutionReport> reports = new ArrayList<ExecutionReport>();
+		OriginalOrder bid_145_1point5Mio = new OriginalOrder(symbol, CommonMessage.Side.BID, 155, 1500_000, 1, "orderID", "clientOrdID", "clientEntityID");
+		List<MatchingEnginOutputMessageFlag> reports = new ArrayList<MatchingEnginOutputMessageFlag>();
 		List<OrderBookDelta> orderbookDeltas = new ArrayList<OrderBookDelta>();
 		this._exchange.match(new ExecutingOrder(bid_145_1point5Mio), askBook, bidBook, reports,orderbookDeltas);
-		for(ExecutionReport er : reports){
+		for(MatchingEnginOutputMessageFlag r : reports){
+			
+			MatchedExecutionReport er = (MatchedExecutionReport)r;
+			
 			System.out.println("last px:"+er._lastPrice +" last qty:"+ er._lastQty);
 		}
 
@@ -140,7 +143,7 @@ public class FXSpotExchangeTest {
 		
 		PriorityQueue<ExecutingOrder> bidBook = _exchange.createBidBook();
 		{
-			FXSpotExchange.Side side = FXSpotExchange.Side.BID;
+			CommonMessage.Side side = CommonMessage.Side.BID;
 			OriginalOrder o_100_1mio = new OriginalOrder(symbol, side, 100.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
 			OriginalOrder o_120_1mio = new OriginalOrder(symbol, side, 120.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
 			OriginalOrder o_130_1mio_sysT1 = new OriginalOrder(symbol, side, 130.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
@@ -154,29 +157,32 @@ public class FXSpotExchangeTest {
 		
 		PriorityQueue<ExecutingOrder> askBook = _exchange.createAskBook();
 		{
-			FXSpotExchange.Side side = FXSpotExchange.Side.OFFER;
+			CommonMessage.Side side = CommonMessage.Side.OFFER;
 			OriginalOrder o_140_1mio = new OriginalOrder(symbol, side, 140.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
 			OriginalOrder o_150_1mio = new OriginalOrder(symbol, side, 150.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
 			OriginalOrder o_160_1mio_sysT1 = new OriginalOrder(symbol, side, 160.1, 1000_000, 1, "orderID", "clientOrdID", "clientEntityID");
 			OriginalOrder o_160_1mio_sysT2 = new OriginalOrder(symbol, side, 160.1, 1000_000, 2, "orderID", "clientOrdID", "clientEntityID");
+			OriginalOrder o_170_1mio = new OriginalOrder(symbol, side, 170.1, 1000_000, 2, "orderID", "clientOrdID", "clientEntityID");
 			
 			
 			askBook.add(new ExecutingOrder(o_140_1mio));
 			askBook.add(new ExecutingOrder(o_160_1mio_sysT1));
 			askBook.add(new ExecutingOrder(o_150_1mio));
 			askBook.add(new ExecutingOrder(o_160_1mio_sysT2));
+			askBook.add(new ExecutingOrder(o_170_1mio));
 		}
 		
-		Multimap<Double, Integer> bidBookSnapshot = _exchange.buildOneSideBookSnapshot(3, Side.BID, bidBook);
-		
+		TreeMap<Double, Integer> bidBookSnapshot = _exchange.buildOneSideAggOrdBook(3, Side.BID, bidBook);
 		for(Double price : bidBookSnapshot.keySet() ){
-			
-			System.out.println("price : " + price);
-			Collection<Integer> qtyList = bidBookSnapshot.get(price);
-			for(Integer qty : qtyList){
-				System.out.println("          :" + qty);	
-			}
+			int aggQty = bidBookSnapshot.get(price);
+			System.out.println(price  + " : " + aggQty);
 		}
-		
+
+		TreeMap<Double, Integer> offerBookSnapshot = _exchange.buildOneSideAggOrdBook(5, Side.OFFER, askBook);
+		for(Double price : offerBookSnapshot.keySet() ){
+			int aggQty = offerBookSnapshot.get(price);
+			System.out.println(price  + " : " + aggQty);
+		}
+
 	}
 }
