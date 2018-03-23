@@ -18,13 +18,13 @@ public class MyApplication extends MessageCracker implements quickfix.Applicatio
         crack(message, sessionID);
     }
 
-    // Using annotation
-    @Handler
-    public void myEmailHandler(quickfix.fix50sp1.NewOrderSingle newOrderSingle, SessionID sessionID) {
-        // handler implementation
-    	
-    	System.out.println("new order single");
-    }
+//    // Using annotation
+//    @Handler
+//    public void myEmailHandler(quickfix.fix50sp1.NewOrderSingle newOrderSingle, SessionID sessionID) {
+//        // handler implementation
+//    	
+//    	System.out.println("new order single");
+//    }
 
 
 

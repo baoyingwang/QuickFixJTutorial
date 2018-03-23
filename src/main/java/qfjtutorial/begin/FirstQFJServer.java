@@ -22,7 +22,7 @@ public class FirstQFJServer {
 	
 	public static void main(String[] args) throws Exception {
 
-		String configurationFileInClasspath = "qfjtutorial/begin/FirstQFJServer.qfj.config.txt";
+		String configurationFileInClasspath = "src/main/java/qfjtutorial/begin/FirstQFJServer.qfj.config.txt";
 		Application application = new AcceptorMessageCalback();
 
 		SessionSettings settings = new SessionSettings(configurationFileInClasspath);

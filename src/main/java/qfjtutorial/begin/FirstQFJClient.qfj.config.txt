@@ -32,7 +32,7 @@ TargetCompID=xyzServerCompID
 #remote server 
 #
 SocketConnectHost=localhost
-SocketConnectPort=17005
+SocketConnectPort=18005
 
 #FIX.4.0,FIX.4.1,FIX.4.2,FIX.4.3,FIX.4.4 
 #FIXT.1.1 (which then requires DefaultApplVerID, see below)

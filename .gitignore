@@ -1,4 +1,11 @@
 /bin
-/fileStore
 /log
-/.settings
+/logarchive
+/build
+/ide_bin
+/.gradle
+/.idea
+/classes
+/fileStore
+/out
+

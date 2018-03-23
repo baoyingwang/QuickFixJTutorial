@@ -18,7 +18,7 @@ FileIncludeTimeStampForMessages=Y
 
 
 SocketAcceptAddress=localhost
-SocketAcceptPort=17005
+SocketAcceptPort=18005
 
 
 #================================================
